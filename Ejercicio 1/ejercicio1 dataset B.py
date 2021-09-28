@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from tabulate import tabulate
 
 df = pd.read_csv('../data/vgsales.csv')
 df.info()
@@ -94,6 +95,35 @@ media_numpy=np.mean(numericos,axis=0)
 mediana_numpy=np.median(numericos,axis=0)
 #desviacion_numpy=np.std(numericos,axis=0)
 desviacion_numpy=np.power(np.var(numericos,axis=0),1/2)
+
+#Comparacion de datos:
+    
+tablaMedia={"Datos": ["NA","EU","JP","Otros","Global"],
+       "Media Manual": [media_NA, media_EU, media_JP, media_Otros, media_Global],
+       "Media Pandas": [media_pandas[2],media_pandas[3],media_pandas[4],media_pandas[5],media_pandas[6]],
+       "Media Numpy": [media_numpy[0], media_numpy[1], media_numpy[2], media_numpy[3], media_numpy[4]]
+       }
+
+tablaMediana={"Datos": ["NA","EU","JP","Otros","Global"],
+       "Mediana Manual": [mediana_NA, mediana_EU, mediana_JP, mediana_Otros, mediana_Global],
+       "Mediana Pandas": [mediana_pandas[2],mediana_pandas[3],mediana_pandas[4],mediana_pandas[5],mediana_pandas[6]],
+       "Mediana Numpy": [mediana_numpy[0], mediana_numpy[1], mediana_numpy[2], mediana_numpy[3], mediana_numpy[4]]
+       }
+
+tablaDesvEst={"Datos": ["NA","EU","JP","Otros","Global"],
+       "Desv. Est Manual": [desviacion_NA, desviacion_EU, desviacion_JP, desviacion_Otros, desviacion_Global],
+       "Desv. Est Pandas": [desviacion_pandas[2],desviacion_pandas[3],desviacion_pandas[4],desviacion_pandas[5],desviacion_pandas[6]],
+       "Desv. Est Numpy": [desviacion_numpy[0], desviacion_numpy[1], desviacion_numpy[2], desviacion_numpy[3], desviacion_numpy[4]]
+       }
+
+tablaModa={"Datos": ["Plataforma", "Año", "Genero", "Publisher"],
+           "Moda Manual": [moda_plataforma, moda_año, moda_genero, moda_publisher],
+           "Moda Pandas": [moda_pandas["Platform"][0], moda_pandas["Year"][0], moda_pandas["Genre"][0], moda_pandas["Publisher"][0]],
+           }
+print(tabulate(tablaMedia, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaMediana, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaDesvEst, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaModa, headers='keys', tablefmt='fancy_grid'))
 
 # c. Grafique los datos y explique su comportamiento (PYTHON)
 
