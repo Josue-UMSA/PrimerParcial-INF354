@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from tabulate import tabulate #pip install tabulate
 
 df = pd.read_csv('../data/pokemon.csv')
 df.info()
@@ -105,6 +106,39 @@ mediana_numpy=np.median(numericos,axis=0)
 #desviacion_numpy=np.std(numericos,axis=0)
 desviacion_numpy=np.power(np.var(numericos,axis=0),1/2)
 
+#Comparar datos
+tablaMedia={"Datos": ["Total","HP","Atq","Def","Vel. Atq","Vel. Def","Vel"],
+       "Media Manual": [media_Total, media_HP, media_Atq, media_Def, media_VelAtq, media_VelDef, media_Vel],
+       "Media Pandas": [media_pandas[1],media_pandas[2],media_pandas[3],media_pandas[4],media_pandas[5],media_pandas[6],media_pandas[7]],
+       "Media Numpy": [media_numpy[0], media_numpy[1], media_numpy[2], media_numpy[3], media_numpy[4], media_numpy[5], media_numpy[6]]
+       }
+
+tablaMediana={"Datos": ["Total","HP","Atq","Def","Vel. Atq","Vel. Def","Vel"],
+       "Mediana Manual": [mediana_Total, mediana_HP, mediana_Atq, mediana_Def, mediana_VelAtq, mediana_VelDef, mediana_Vel],
+       "Mediana Pandas": [mediana_pandas[1],mediana_pandas[2],mediana_pandas[3],mediana_pandas[4],mediana_pandas[5],mediana_pandas[6],mediana_pandas[7]],
+       "Mediana Numpy": [mediana_numpy[0], mediana_numpy[1], mediana_numpy[2], mediana_numpy[3], mediana_numpy[4], mediana_numpy[5], mediana_numpy[6]]
+       }
+
+tablaModa1={"Datos": ["Total","HP","Atq","Def","Vel. Atq","Vel. Def","Vel"],
+       "Moda Manual": [moda_Total, moda_HP, moda_Atq, moda_Def, moda_VelAtq, moda_VelDef, moda_Vel],
+       "Moda Pandas": [moda_pandas["Total"][0],moda_pandas["HP"][0],moda_pandas["Attack"][0],moda_pandas["Defense"][0],moda_pandas["Sp. Atk"][0],moda_pandas["Sp. Def"][0],moda_pandas["Speed"][0]]
+       }
+
+tablaDesvEst={"Datos": ["Total","HP","Atq","Def","Vel. Atq","Vel. Def","Vel"],
+       "Desv. Est Manual": [desviacion_Total, desviacion_HP, desviacion_Atq, desviacion_Def, desviacion_VelAtq, desviacion_VelDef, desviacion_Vel],
+       "Desv. Est Pandas": [desviacion_pandas[1],desviacion_pandas[2],desviacion_pandas[3],desviacion_pandas[4],desviacion_pandas[5],desviacion_pandas[6],desviacion_pandas[7]],
+       "Desv. Est Numpy": [desviacion_numpy[0], desviacion_numpy[1], desviacion_numpy[2], desviacion_numpy[3], desviacion_numpy[4], desviacion_numpy[5], desviacion_numpy[6]]
+       }
+
+tablaModa2={"Datos": ["Tipo 1", "Tipo 2"],
+            "Moda Manual": [moda_Tipo1, moda_Tipo2],
+            "Moda Pandas": [moda_pandas["Type 1"][0], moda_pandas["Type 2"][0]],
+            }
+print(tabulate(tablaMedia, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaDesvEst, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaMediana, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaModa1, headers='keys', tablefmt='fancy_grid'))
+print(tabulate(tablaModa2, headers='keys', tablefmt='fancy_grid'))
 # c. Grafique los datos y explique su comportamiento (PYTHON)
 aux=df.mode().to_numpy()
 modas_numpy=aux[0,4:11]
